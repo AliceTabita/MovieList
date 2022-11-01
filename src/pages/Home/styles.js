@@ -24,10 +24,8 @@ export const Movie = styled.li`
 	span {
 		font-weight: bold;
 	}
-	a {
-		transition: all 0.4s;
-	}
-	a:hover {
+	transition: all 0.4s;
+	:hover {
 		transform: scale(1.1);
 	}
 `;

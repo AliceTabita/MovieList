@@ -1,32 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Container, MovieList, Movie } from "./styles";
 function Home() {
-	const movies = [
-		{
-			title: "Spider Man",
-			img_url:
-				"https://www.sonypictures.com.br/sites/brazil/files/2022-03/KEY%20ART_HOMEM%20ARANHA%203.JPG"
-		},
-		{
-			title: "Spider Man",
-			img_url:
-				"https://www.sonypictures.com.br/sites/brazil/files/2022-03/KEY%20ART_HOMEM%20ARANHA%203.JPG"
-		},
-		{
-			title: "Spider Man",
-			img_url:
-				"https://www.sonypictures.com.br/sites/brazil/files/2022-03/KEY%20ART_HOMEM%20ARANHA%203.JPG"
-		}
-	];
+	const [movies, setMovies] = useState([]);
+	useEffect(() => {
+		fetch(
+			`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_MOVIE_API_KEY}&language=pt-BR&page=1&with_genres=14,16`
+		)
+			.then(response => response.json())
+			.then(data => setMovies(data.results));
+	}, []);
+	document.title = "Animações";
 	return (
 		<Container>
-			<h1>filmes</h1>
+			<h1>Animações </h1>
 			<MovieList>
 				{movies.map(movie => {
 					return (
 						<Movie>
 							<a href="https://music.youtube.com/">
-								<img src={movie.img_url} />
+								<img
+									src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+								/>
 							</a>
 							<span>{movie.title}</span>
 						</Movie>
